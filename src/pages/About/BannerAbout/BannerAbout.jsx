@@ -1,7 +1,7 @@
 const BannerAbout = () => {
   return (
     <div
-      className="hero min-h-screen rounded-l-lg"
+      className="hero min-h-[80vh] rounded-l-lg"
       style={{
         backgroundImage:
           "url(https://i.ibb.co/t3jhjCz/close-up-keyboard-glasses-with-executives-background.jpg)",
