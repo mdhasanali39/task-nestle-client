@@ -6,10 +6,21 @@ import { axiosPublic } from "../../../api";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import {useNavigate} from 'react-router-dom'
+import { useDrag } from "react-dnd";
 
 const Task = ({ priority, taskName, taskDescription, id, status, refetch }) => {
 
   const navigate = useNavigate()
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "task",
+    item:{id,status},
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging()
+    })
+  }))
+
+  console.log(isDragging);
 
   // handle complete
   const handleComplete = async () => {
@@ -61,8 +72,9 @@ const Task = ({ priority, taskName, taskDescription, id, status, refetch }) => {
     navigate(`/manage-tasks/your-tasks/update-task/${id}`)
   };
 
+
   return (
-    <div className="relative w-[95%] mx-auto bg-white shadow-md rounded-lg px-2 py-[6px] mt-3">
+    <div ref={drag} className={`relative w-[95%] mx-auto bg-white shadow-md rounded-lg px-2 py-[6px] mt-3 cursor-grab ${isDragging? "opacity-25 cursor-grabbing":"opacity-100"}`}>
       <h3 className="font-semibold text-gray-600">{taskName}</h3>
       <p className="text-sm">{taskDescription}</p>
       <p className="text-sm font-bold px-2 py-1 bg-action-bg text-white rounded-lg w-min whitespace-nowrap mt-2">
