@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { FaLeftLong } from "react-icons/fa6";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { axiosPublic } from "../../../api";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
@@ -8,15 +8,11 @@ import toast from "react-hot-toast";
 const UpdateTask = () => {
   const { data: task } = useLoaderData();
   const { user } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-//   console.log(task);
+  //   console.log(task);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     // console.log(data);
@@ -25,12 +21,10 @@ const UpdateTask = () => {
       status: task?.status,
       email: user?.email,
     });
-    if(acknowledge.data.modifiedCount > 0){
-      toast.success("Your task Updated")
-      navigate("/manage-tasks/your-tasks", {replace:true})
+    if (acknowledge.data.modifiedCount > 0) {
+      toast.success("Your task Updated");
+      navigate("/manage-tasks/your-tasks", { replace: true });
     }
-    console.log(acknowledge);
-    // console.log(data);
   };
 
   return (
@@ -85,11 +79,13 @@ const UpdateTask = () => {
             </button>
           </div>
         </form>
-        <FaLeftLong
-          // onClick={() => setAddIconClicked(false)}
-          size={28}
-          className="absolute top-1 right-1"
-        />
+        <span
+          onClick={() => navigate("/manage-tasks/your-tasks")}
+          className="absolute top-1 right-1 flex gap-2 items-center text-lg cursor-pointer"
+        >
+          <FaLeftLong size={28} />
+          Back
+        </span>
       </div>
     </>
   );
