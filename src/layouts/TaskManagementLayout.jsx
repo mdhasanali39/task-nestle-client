@@ -3,6 +3,8 @@ import Sidebar from "../components/TaskManagement/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const TaskManagementLayout = () => {
   const [isMedium, setIsMedium] = useState(false);
@@ -28,6 +30,7 @@ const TaskManagementLayout = () => {
   }, [setIsMedium]);
 
   return (
+    <DndProvider backend={HTML5Backend}>
     <div className="flex">
       {/* sidebar  */}
       <>
@@ -52,6 +55,7 @@ const TaskManagementLayout = () => {
         <Outlet></Outlet>
       </div>
     </div>
+    </DndProvider>
   );
 };
 
